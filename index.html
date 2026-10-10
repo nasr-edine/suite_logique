@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suites &amp; Défis — Entraînement aux suites logiques</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#11132b;
+  --bg-grad:#171a3d;
+  --panel:#1c1f45;
+  --panel-light:#262a5c;
+  --panel-border:#343a7a;
+  --gold:#f5b942;
+  --teal:#4ecdc4;
+  --coral:#ff6b6b;
+  --green:#6bcb77;
+  --text:#f4f1ea;
+  --text-dim:#a9add1;
+  --radius:18px;
+  --radius-sm:10px;
+  font-family:'Baloo 2', ui-rounded, 'Segoe UI', sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:radial-gradient(circle at 20% 0%, var(--bg-grad), var(--bg) 60%);
+  color:var(--text);
+  min-height:100vh;
+  padding-bottom:60px;
+}
+.mono{font-family:'Space Mono', ui-monospace, monospace;}
+h1,h2,h3{font-weight:800;margin:0 0 8px;}
+p{color:var(--text-dim);line-height:1.5;}
+code{font-family:'Space Mono',monospace;background:var(--panel-light);padding:1px 6px;border-radius:6px;font-size:12.5px;color:var(--teal);}
+button{
+  font-family:inherit;
+  cursor:pointer;
+  border:none;
+  border-radius:999px;
+  padding:10px 20px;
+  font-weight:700;
+  font-size:15px;
+  transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+button:active{transform:scale(.96);}
+button.primary{background:linear-gradient(135deg,var(--gold),#e8973a);color:#1c1200;box-shadow:0 4px 0 #a3671c;}
+button.primary:hover{box-shadow:0 5px 12px rgba(245,185,66,.4);}
+button.teal{background:linear-gradient(135deg,var(--teal),#2fa39a);color:#04211f;box-shadow:0 4px 0 #1c6b64;}
+button.ghost{background:transparent;color:var(--text-dim);border:2px solid var(--panel-border);box-shadow:none;}
+button.ghost:hover{color:var(--text);border-color:var(--teal);}
+button.danger{background:transparent;color:var(--coral);border:2px solid rgba(255,107,107,.4);box-shadow:none;}
+button:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+input[type=text], input[type=number], input[type=date], textarea, select{
+  font-family:inherit;
+  background:var(--panel-light);
+  border:2px solid var(--panel-border);
+  border-radius:var(--radius-sm);
+  color:var(--text);
+  padding:10px 14px;
+  font-size:15px;
+  width:100%;
+}
+textarea{font-family:'Space Mono',monospace;font-size:13px;}
+input:focus, textarea:focus, select:focus{outline:none;border-color:var(--teal);}
+label{font-size:13px;color:var(--text-dim);display:block;margin:0 0 4px;font-weight:700;letter-spacing:.02em;}
+label.check{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;}
+label.check input{width:auto;}
+.field{margin-bottom:14px;}
+
+header.top{
+  padding:22px 5vw 14px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
+}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand .logo{
+  width:46px;height:46px;border-radius:14px;
+  background:linear-gradient(135deg,var(--gold),var(--teal));
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+  box-shadow:0 4px 14px rgba(245,185,66,.3);
+}
+.brand h1{font-size:22px;}
+.brand .tag{font-size:12px;color:var(--text-dim);margin-top:-2px;}
+nav.tabs{display:flex;gap:8px;flex-wrap:wrap;}
+nav.tabs button{background:var(--panel);color:var(--text-dim);box-shadow:none;border:2px solid transparent;}
+nav.tabs button.active{background:var(--panel-light);color:var(--gold);border-color:var(--gold);}
+
+main{max-width:920px;margin:0 auto;padding:10px 5vw 40px;}
+.card{
+  background:var(--panel);
+  border:1px solid var(--panel-border);
+  border-radius:var(--radius);
+  padding:22px 24px;
+  margin-bottom:18px;
+}
+.card h2{font-size:19px;color:var(--gold);}
+.row{display:flex;gap:14px;flex-wrap:wrap;}
+.row > *{flex:1;min-width:160px;}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--panel-light);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--text-dim);
+}
+.pill.today{background:var(--gold);color:#1c1200;font-weight:700;}
+
+.trail{display:flex;align-items:center;justify-content:center;gap:0;padding:14px 0 22px;flex-wrap:wrap;}
+.trail .node{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--panel-light);border:2px solid var(--panel-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--text-dim);
+  position:relative;z-index:2;flex-shrink:0;
+}
+.trail .link{width:16px;height:2px;background:var(--panel-border);flex-shrink:0;}
+.trail .node.current{border-color:var(--gold);color:var(--gold);box-shadow:0 0 0 5px rgba(245,185,66,.15);animation:pulse 1.4s infinite;}
+.trail .node.correct{background:var(--green);border-color:var(--green);color:#0a2b0e;}
+.trail .node.wrong{background:var(--coral);border-color:var(--coral);color:#330606;}
+.trail .link.done{background:var(--teal);}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 5px rgba(245,185,66,.15);}50%{box-shadow:0 0 0 9px rgba(245,185,66,.05);}}
+
+.profile-grid{display:flex;gap:12px;flex-wrap:wrap;}
+.profile-card{
+  background:var(--panel-light);border:2px solid var(--panel-border);border-radius:var(--radius);
+  padding:16px;width:130px;text-align:center;cursor:pointer;position:relative;
+}
+.profile-card.selected{border-color:var(--gold);}
+.profile-card .avatar{font-size:34px;margin-bottom:6px;}
+.profile-card .rm{position:absolute;top:4px;right:8px;background:none;border:none;color:var(--text-dim);font-size:14px;padding:2px;box-shadow:none;}
+
+.sess-card{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  background:var(--panel-light);border:2px solid var(--panel-border);border-radius:var(--radius-sm);
+  padding:12px 16px;margin-bottom:10px;cursor:pointer;
+}
+.sess-card:hover{border-color:var(--teal);}
+.sess-card.selected{border-color:var(--gold);}
+.sess-card.locked{opacity:.45;cursor:not-allowed;}
+.sess-card.locked:hover{border-color:var(--panel-border);}
+.sess-main{display:flex;flex-direction:column;}
+.sess-sub{font-size:12.5px;color:var(--text-dim);text-transform:capitalize;}
+.sess-tags{display:flex;gap:6px;flex-wrap:wrap;}
+details summary{cursor:pointer;color:var(--teal);font-weight:700;margin:6px 0 12px;}
+
+.game-wrap{text-align:center;}
+.timer-bar-outer{height:10px;background:var(--panel-light);border-radius:999px;overflow:hidden;margin:16px 0 26px;}
+.timer-bar-inner{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:999px;transition:width .25s linear, background .3s ease;}
+.sequence-display{
+  font-family:'Space Mono',monospace;
+  font-size:clamp(26px,6vw,46px);
+  font-weight:700;letter-spacing:2px;
+  background:var(--panel-light);
+  border-radius:var(--radius);
+  padding:34px 20px;
+  margin:10px 0 24px;
+  word-break:break-word;
+}
+.answer-row{display:flex;gap:10px;max-width:420px;margin:0 auto;}
+.answer-row input{text-align:center;font-size:20px;font-family:'Space Mono',monospace;}
+.feedback-banner{border-radius:var(--radius);padding:20px;margin:18px 0;font-size:18px;font-weight:700;}
+.feedback-banner.ok{background:rgba(107,203,119,.15);color:var(--green);border:2px solid var(--green);}
+.feedback-banner.ko{background:rgba(255,107,107,.15);color:var(--coral);border:2px solid var(--coral);}
+.feedback-banner .rule{display:block;margin-top:6px;font-weight:400;color:var(--text-dim);font-size:14px;}
+
+.badge-grid{display:flex;gap:12px;flex-wrap:wrap;}
+.badge{width:100px;text-align:center;padding:12px 8px;border-radius:var(--radius-sm);background:var(--panel-light);border:2px solid var(--panel-border);}
+.badge.locked{opacity:.35;}
+.badge .ic{font-size:28px;}
+.badge .lbl{font-size:11.5px;font-weight:700;margin-top:4px;color:var(--text-dim);}
+.badge:not(.locked) .lbl{color:var(--gold);}
+.newbadge-pop{
+  display:inline-flex;flex-direction:column;align-items:center;gap:4px;
+  background:linear-gradient(135deg,var(--panel-light),var(--panel));
+  border:2px solid var(--gold);border-radius:var(--radius-sm);padding:14px 18px;margin:6px;
+  animation:pop .5s ease;
+}
+@keyframes pop{0%{transform:scale(.6);opacity:0;}70%{transform:scale(1.08);}100%{transform:scale(1);opacity:1;}}
+
+.result-grid{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0;}
+.stat-box{flex:1;min-width:130px;background:var(--panel-light);border-radius:var(--radius-sm);padding:16px;text-align:center;}
+.stat-box .val{font-size:28px;font-weight:800;color:var(--gold);}
+.stat-box .lbl{font-size:12px;color:var(--text-dim);}
+.delta.up{color:var(--green);}
+.delta.down{color:var(--coral);}
+.delta.flat{color:var(--text-dim);}
+
+.history-row{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--panel-border);flex-wrap:wrap;}
+.history-row:last-child{border-bottom:none;}
+.bar-wrap{height:10px;background:var(--panel-light);border-radius:999px;overflow:hidden;flex:1;min-width:80px;}
+.bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--teal),var(--green));}
+
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--panel-border);}
+th{color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:.05em;}
+.msg-ok{color:var(--green);}
+.msg-ko{color:var(--coral);}
+.msg-warn{color:var(--gold);}
+.empty{text-align:center;padding:40px 20px;color:var(--text-dim);}
+.empty .ic{font-size:38px;margin-bottom:10px;}
+footer{text-align:center;color:var(--text-dim);font-size:12px;padding:20px;}
+@media (max-width:600px){
+  .brand h1{font-size:18px;}
+  nav.tabs button{padding:8px 12px;font-size:13px;}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <div class="logo">🧩</div>
+    <div>
+      <h1>Suites &amp; Défis</h1>
+      <div class="tag">Entraînement aux suites logiques</div>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs"></nav>
+</header>
+
+<main id="app"></main>
+
+<footer>Les résultats et badges sont enregistrés dans ce navigateur. Pense à exporter une sauvegarde JSON de temps en temps depuis l'onglet Progression.</footer>
+
+<script>
+/* ============================= CONFIG ============================= */
+const STORAGE_KEY = 'suitesLogiques_v1';
+const SEMAINES_DIR = 'semaines/';   // dossier du dépôt qui contient les fichiers hebdomadaires
+const WEEKS_BACK = 8;               // nombre de semaines passées recherchées
+const WEEKS_AHEAD = 1;              // nombre de semaines futures recherchées
+const AVATARS = ['🦊','🐼','🐸','🦁','🐨','🐧','🦄','🐢','🐙','🦉'];
+
+/* ============================= STATE ============================= */
+function defaultState(){ return { children: [], results: [], badgesUnlocked: {} }; }
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultState();
+    const s = JSON.parse(raw);
+    delete s.sessions; // anciennes versions : les sessions viennent maintenant des fichiers du dépôt
+    return Object.assign(defaultState(), s);
+  }catch(e){ console.error('Lecture impossible', e); return defaultState(); }
+}
+function saveState(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){ console.error(e); } }
+let state = loadState();
+
+let ui = {
+  tab: 'jouer',
+  selectedChildId: state.children[0]?.id || null,
+  playSessionId: null,
+  progChildId: state.children[0]?.id || null,
+  unlockAll: false,
+};
+if(!state.children.length) ui.tab = 'profils';
+
+function uid(prefix){ return prefix + '_' + Math.random().toString(36).slice(2,9); }
+
+/* ============================= DATES ============================= */
+function pad(n){ return String(n).padStart(2,'0'); }
+function ymd(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+function parseYmd(s){ const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); }
+function addDays(d,n){ const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate()+n); return x; }
+function mondayOf(d){ const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay()+6)%7)); return x; }
+function fmtDay(s){ return parseYmd(s).toLocaleDateString('fr-FR',{weekday:'long', day:'numeric', month:'long'}); }
+function fmtDate(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString('fr-FR', {day:'2-digit', month:'short', year:'numeric'}) + ' ' + d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+}
+
+/* ============================= ENCODAGE LÉGER ============================= */
+function b64enc(s){ const b = new TextEncoder().encode(s); let bin=''; b.forEach(x=>bin+=String.fromCharCode(x)); return btoa(bin); }
+function b64dec(s){ const bin = atob(s); const b = Uint8Array.from(bin, c=>c.charCodeAt(0)); return new TextDecoder().decode(b); }
+function decodeField(v){
+  v = (v ?? '').toString();
+  if(v.startsWith('b64:')){ try{ return b64dec(v.slice(4)); }catch(e){ return v; } }
+  return v;
+}
+
+/* ============================= SESSIONS (fichiers du dépôt) ============================= */
+let remote = { sessions: [], loading: false, loaded: false, filesFound: 0 };
+let manualSessions = [];
+
+function normalizeWeek(data, fileKey){
+  const list = Array.isArray(data.sessions) ? data.sessions : [];
+  return list.map((s,i)=>{
+    const id = s.id || (fileKey + '#' + (i+1));
+    return {
+      id,
+      semaine: fileKey,
+      title: s.titre || s.title || ('Session ' + (i+1)),
+      jour: s.jour || null,
+      timePerQuestion: Math.max(5, parseInt(s.temps) || 30),
+      items: (s.suites || []).map((it,j)=>({
+        id: id + '-' + (j+1),
+        sequence: String(it.suite ?? '').trim(),
+        answer: decodeField(it.reponse).trim(),
+        rule: decodeField(it.regle).trim(),
+      })).filter(it=>it.sequence && it.answer!==''),
+    };
+  }).filter(s=>s.items.length);
+}
+
+async function loadRemote(){
+  remote.loading = true;
+  if(!gameState) render();
+  const monday0 = mondayOf(new Date());
+  const keys = [];
+  for(let k=-WEEKS_BACK; k<=WEEKS_AHEAD; k++) keys.push(ymd(addDays(monday0, 7*k)));
+  const results = await Promise.all(keys.map(async key=>{
+    try{
+      const r = await fetch(SEMAINES_DIR + key + '.json?t=' + Date.now(), {cache:'no-store'});
+      if(!r.ok) return null;
+      const data = await r.json();
+      return normalizeWeek(data, data.semaine || key);
+    }catch(e){ return null; }
+  }));
+  remote.sessions = results.filter(Boolean).flat();
+  remote.filesFound = results.filter(Boolean).length;
+  remote.loading = false;
+  remote.loaded = true;
+  if(!gameState) render();
+}
+
+function allSessions(){
+  const map = new Map();
+  remote.sessions.forEach(s=>map.set(s.id, s));
+  manualSessions.forEach(s=>map.set(s.id, s));
+  return [...map.values()].sort((a,b)=>{
+    const ja = a.jour || '', jb = b.jour || '';
+    if(ja!==jb) return jb.localeCompare(ja);
+    return a.title.localeCompare(b.title);
+  });
+}
+function isLocked(s){ return !ui.unlockAll && s.jour && s.jour > ymd(new Date()); }
+function bestScore(childId, sessionId){
+  const rs = state.results.filter(r=>r.childId===childId && r.sessionId===sessionId);
+  return rs.length ? Math.max(...rs.map(r=>r.score)) : null;
+}
+
+function loadWeekFile(evt){
+  const file = evt.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    try{
+      const data = JSON.parse(reader.result);
+      if(!Array.isArray(data.sessions)) throw new Error('Champ "sessions" manquant');
+      const key = data.semaine || file.name.replace(/\.json$/i,'');
+      const sessions = normalizeWeek(data, key);
+      if(!sessions.length) throw new Error('Aucune suite valide trouvée');
+      manualSessions = manualSessions.filter(s=>s.semaine!==key).concat(sessions);
+      ui.playSessionId = null;
+      render();
+    }catch(e){ alert('Fichier invalide : ' + e.message); }
+  };
+  reader.readAsText(file);
+}
+
+/* ============================= SON ============================= */
+let actx = null;
+function ac(){ if(!actx){ actx = new (window.AudioContext||window.webkitAudioContext)(); } return actx; }
+function tone(freq, start, dur, type='sine', gain=.18){
+  try{
+    const ctx = ac();
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = type; osc.frequency.value = freq;
+    osc.connect(g); g.connect(ctx.destination);
+    const t0 = ctx.currentTime + start;
+    g.gain.setValueAtTime(0, t0);
+    g.gain.linearRampToValueAtTime(gain, t0 + 0.015);
+    g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+    osc.start(t0); osc.stop(t0 + dur + 0.02);
+  }catch(e){}
+}
+const sounds = {
+  start(){ [440,554,659,880].forEach((f,i)=>tone(f, i*0.09, 0.16,'triangle')); },
+  tick(){ tone(1200, 0, 0.045, 'square', 0.05); },
+  correct(){ tone(880,0,0.14,'sine'); tone(1318,0.09,0.22,'sine'); },
+  wrong(){ tone(220,0,0.18,'sawtooth',0.12); tone(160,0.1,0.22,'sawtooth',0.1); },
+  sessionEnd(){ [523,659,784,1046,1318].forEach((f,i)=>tone(f, i*0.11, 0.3,'triangle')); },
+  badge(){ [1046,1318,1568,2093].forEach((f,i)=>tone(f, i*0.07, 0.2,'sine',0.12)); },
+};
+
+/* ============================= BADGES ============================= */
+const BADGE_DEFS = [
+  { id:'first_session', ic:'🚀', lbl:'Premier pas', desc:'Terminer sa toute première session', check:(res)=> res.length>=1 },
+  { id:'perfect_score', ic:'🌟', lbl:'Sans faute', desc:'Obtenir 10/10 sur une session', check:(res)=> res.some(r=>r.score===r.total) },
+  { id:'speedy', ic:'⚡', lbl:'Éclair', desc:'Répondre vite (moins de 8s en moyenne) avec un bon score', check:(res)=> res.some(r=> r.avgTimeMs < 8000 && r.score >= r.total*0.8) },
+  { id:'five_sessions', ic:'🎯', lbl:'Habitué', desc:'Terminer 5 sessions', check:(res)=> res.length>=5 },
+  { id:'ten_sessions', ic:'🏆', lbl:'Champion', desc:'Terminer 10 sessions', check:(res)=> res.length>=10 },
+  { id:'combo5', ic:'🔥', lbl:'Combo x5', desc:'Enchaîner 5 bonnes réponses d\'affilée',
+    check:(res)=> res.some(r=>{
+      let streak=0, best=0;
+      for(const a of r.answers){ if(a.correct){streak++; best=Math.max(best,streak);} else streak=0; }
+      return best>=5;
+    }) },
+  { id:'streak3', ic:'📅', lbl:'Régularité', desc:'S\'entraîner 3 jours de suite',
+    check:(res)=>{
+      const days = [...new Set(res.map(r=>ymd(new Date(r.date))))].sort();
+      let streak=1, best=days.length?1:0;
+      for(let i=1;i<days.length;i++){
+        const diff = Math.round((parseYmd(days[i]) - parseYmd(days[i-1]))/86400000);
+        if(diff===1){ streak++; best=Math.max(best,streak);} else streak=1;
+      }
+      return best>=3;
+    }},
+  { id:'comeback', ic:'📈', lbl:'Progrès', desc:'Améliorer son score par rapport à la session précédente',
+    check:(res)=>{ for(let i=1;i<res.length;i++){ if(res[i].score > res[i-1].score) return true; } return false; }},
+];
+function childResults(childId){
+  return state.results.filter(r=>r.childId===childId).sort((a,b)=> new Date(a.date)-new Date(b.date));
+}
+function evaluateBadges(childId){
+  const res = childResults(childId);
+  const already = state.badgesUnlocked[childId] || [];
+  const nowUnlocked = BADGE_DEFS.filter(b=>b.check(res)).map(b=>b.id);
+  const newlyUnlocked = nowUnlocked.filter(id=>!already.includes(id));
+  state.badgesUnlocked[childId] = nowUnlocked;
+  return newlyUnlocked;
+}
+
+/* ============================= HELPERS ============================= */
+function esc(s){ return (s??'').toString().replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function normalize(s){ return (s??'').toString().trim().toLowerCase().replace(/\s+/g,' '); }
+function answersMatch(given, expected){
+  const g = normalize(given), e = normalize(expected);
+  if(g==='') return false;
+  if(g===e) return true;
+  const gn = parseFloat(g.replace(',','.')), en = parseFloat(e.replace(',','.'));
+  if(!isNaN(gn) && !isNaN(en)) return gn===en;
+  return false;
+}
+
+/* ---- Lecture de tableaux markdown (convertisseur) ----
+   Ligne attendue : | 1 | 2 – 4 – 6 – 8 – ? | 10 | +2 |  (les ** sont ignorés)
+   Les lignes de séparation (|---|---:|) et d'en-tête sont ignorées. */
+function parseMarkdownTable(text){
+  const lines = text.split('\n').map(l=>l.trim()).filter(l=>l.startsWith('|'));
+  const items = [];
+  for(const line of lines){
+    const cells = line.split('|').map(c=>c.trim()).filter((c,i,arr)=> !(i===0 && c==='') && !(i===arr.length-1 && c===''));
+    if(cells.length < 3) continue;
+    const clean = cells.map(c=> c.replace(/\*\*/g,'').trim());
+    if(clean.every(c=>/^:?-{2,}:?$/.test(c) || c==='')) continue;           // ligne de séparation
+    if(/^suite/i.test(clean[1]||'') && /^r[ée]ponse/i.test(clean[2]||'')) continue; // en-tête
+    const sequence = clean[1] || '';
+    const answer = clean[2] || '';
+    const rule = clean[3] || '';
+    if(!sequence || !answer) continue;
+    items.push({ sequence, answer, rule });
+  }
+  return items;
+}
+/* Découpe un texte contenant plusieurs sessions (titres "### Session 2 — ..." suivis d'un tableau) */
+function splitSessions(text){
+  const isHeading = l => /^\s*#{1,6}\s+\S/.test(l) || /^\s*\**\s*session\s*\d+/i.test(l);
+  const hasTable = lines => lines.some(x=>x.trim().startsWith('|'));
+  const blocks = []; let cur = { title:'', lines:[] };
+  for(const l of text.split('\n')){
+    if(isHeading(l)){
+      if(hasTable(cur.lines)) blocks.push(cur);
+      cur = { title: l.replace(/^\s*#{1,6}\s*/,'').replace(/\*\*/g,'').trim(), lines:[] };
+    } else cur.lines.push(l);
+  }
+  if(hasTable(cur.lines)) blocks.push(cur);
+  return blocks.map(b=>({ title:b.title, items: parseMarkdownTable(b.lines.join('\n')) })).filter(b=>b.items.length);
+}
+
+/* ============================= SHELL ============================= */
+const TABS = [
+  {id:'jouer', ic:'🎮', lbl:'Jouer'},
+  {id:'progression', ic:'📊', lbl:'Progression'},
+  {id:'profils', ic:'👨‍👩‍👧', lbl:'Profils'},
+  {id:'preparer', ic:'🛠️', lbl:'Préparer la semaine'},
+];
+function renderTabs(){
+  document.getElementById('tabs').innerHTML = TABS.map(t=>
+    `<button class="${ui.tab===t.id?'active':''}" onclick="setTab('${t.id}')">${t.ic} ${t.lbl}</button>`
+  ).join('');
+}
+function setTab(id){ ui.tab = id; render(); }
+function render(){
+  renderTabs();
+  const app = document.getElementById('app');
+  if(ui.tab==='profils') app.innerHTML = viewProfils();
+  else if(ui.tab==='preparer') app.innerHTML = viewPreparer();
+  else if(ui.tab==='jouer') app.innerHTML = viewJouer();
+  else if(ui.tab==='progression') app.innerHTML = viewProgression();
+}
+
+/* ============================= PROFILS ============================= */
+function viewProfils(){
+  const cards = state.children.map(c=>`
+    <div class="profile-card ${ui.selectedChildId===c.id?'selected':''}" onclick="selectChild('${c.id}')">
+      <button class="rm" onclick="event.stopPropagation(); removeChild('${c.id}')" title="Supprimer">✕</button>
+      <div class="avatar">${c.avatar}</div>
+      <div>${esc(c.name)}</div>
+    </div>`).join('');
+  return `
+    <div class="card">
+      <h2>Qui s'entraîne ?</h2>
+      <p>Un profil par enfant : chacun garde son propre historique, ses badges et sa progression.</p>
+      <div class="profile-grid">${cards || '<p>Aucun profil pour l\'instant.</p>'}</div>
+    </div>
+    <div class="card">
+      <h2>Ajouter un enfant</h2>
+      <div class="row">
+        <div class="field"><label>Prénom</label><input id="newChildName" type="text" placeholder="Ex : Lina"></div>
+        <div class="field" style="max-width:120px;">
+          <label>Avatar</label>
+          <select id="newChildAvatar">${AVATARS.map(a=>`<option>${a}</option>`).join('')}</select>
+        </div>
+      </div>
+      <button class="primary" onclick="addChild()">+ Ajouter</button>
+    </div>`;
+}
+function addChild(){
+  const name = document.getElementById('newChildName').value.trim();
+  if(!name) return;
+  const avatar = document.getElementById('newChildAvatar').value;
+  const c = { id: uid('child'), name, avatar };
+  state.children.push(c);
+  state.badgesUnlocked[c.id] = [];
+  ui.selectedChildId = c.id; ui.progChildId = c.id;
+  saveState(); render();
+}
+function selectChild(id){ ui.selectedChildId = id; ui.progChildId = id; render(); }
+function removeChild(id){
+  if(!confirm('Supprimer ce profil et tout son historique ?')) return;
+  state.children = state.children.filter(c=>c.id!==id);
+  state.results = state.results.filter(r=>r.childId!==id);
+  delete state.badgesUnlocked[id];
+  if(ui.selectedChildId===id) ui.selectedChildId = state.children[0]?.id || null;
+  if(ui.progChildId===id) ui.progChildId = ui.selectedChildId;
+  saveState(); render();
+}
+
+/* ============================= PRÉPARER LA SEMAINE (convertisseur) ============================= */
+let convResult = null; // { fileName, json }
+
+function viewPreparer(){
+  const nextMonday = ymd(addDays(mondayOf(new Date()), 7));
+  return `
+    <div class="card">
+      <h2>Créer le fichier de la semaine</h2>
+      <p>Colle ici le texte généré par ton chatbot : plusieurs sessions à la suite, chacune avec son titre (<code>### Session 2 — ...</code>) et son tableau. L'outil crée le fichier à envoyer dans le dossier <code>${SEMAINES_DIR}</code> de ton dépôt GitHub.</p>
+      <div class="field"><textarea id="convText" rows="10" placeholder="### Session 1 — Débutant
+| # | Suite | Réponse | Règle |
+| --- | --- | ---: | --- |
+| 1 | 2 – 4 – 6 – 8 – ? | 10 | +2 |
+
+### Session 2 — ..."></textarea></div>
+      <div class="row">
+        <div class="field"><label>Lundi de la semaine concernée</label><input id="convMonday" type="date" value="${nextMonday}"></div>
+        <div class="field"><label>Temps par question (secondes)</label><input id="convTime" type="number" min="5" max="180" value="30"></div>
+      </div>
+      <div class="field"><label class="check"><input id="convSkipWE" type="checkbox"> Ne pas utiliser samedi et dimanche (1ère session le lundi, 5 sessions max)</label></div>
+      <div class="field"><label class="check"><input id="convMask" type="checkbox" checked> Masquer les réponses dans le fichier (encodage simple)</label></div>
+      <button class="primary" onclick="convertText()">⚙️ Générer le fichier</button>
+      <div id="convOut" style="margin-top:16px;"></div>
+    </div>
+    <div class="card">
+      <h2>Mettre en ligne</h2>
+      <p>1. Télécharge le fichier généré (<code>AAAA-MM-JJ.json</code>, la date du lundi).<br>
+         2. Sur GitHub, ouvre ton dépôt → dossier <code>${SEMAINES_DIR}</code> → <strong>Add file → Upload files</strong>.<br>
+         3. Valide (commit). Après 1 à 2 minutes, les séries apparaissent dans l'onglet Jouer (rafraîchis la page).</p>
+      <p>Le site cherche automatiquement les fichiers de la semaine en cours, des ${WEEKS_BACK} semaines précédentes et de la semaine suivante.</p>
+    </div>`;
+}
+function convertText(){
+  const out = document.getElementById('convOut');
+  const text = document.getElementById('convText').value;
+  const mondayInput = document.getElementById('convMonday').value;
+  const temps = Math.max(5, parseInt(document.getElementById('convTime').value) || 30);
+  const skipWE = document.getElementById('convSkipWE').checked;
+  const mask = document.getElementById('convMask').checked;
+  if(!mondayInput){ out.innerHTML = '<p class="msg-ko">Choisis la date du lundi.</p>'; return; }
+  const blocks = splitSessions(text);
+  if(!blocks.length){
+    out.innerHTML = '<p class="msg-ko">Aucun tableau reconnu. Vérifie que les lignes commencent par « | » et contiennent au moins : #, Suite, Réponse.</p>';
+    return;
+  }
+  const monday = mondayOf(parseYmd(mondayInput));
+  const days = []; // jours disponibles
+  for(let i=0; days.length<blocks.length; i++){
+    if(skipWE && (i%7)>=5) continue;
+    days.push(addDays(monday, i));
+  }
+  const capacity = skipWE ? 5 : 7;
+  const enc = v => mask ? 'b64:' + b64enc(v) : v;
+  const json = {
+    semaine: ymd(monday),
+    sessions: blocks.map((b,i)=>({
+      titre: b.title || ('Session ' + (i+1)),
+      jour: ymd(days[i]),
+      temps,
+      suites: b.items.map(it=>({ suite: it.sequence, reponse: enc(it.answer), regle: it.rule ? enc(it.rule) : '' })),
+    })),
+  };
+  convResult = { fileName: ymd(monday) + '.json', json };
+  const rows = json.sessions.map((s,i)=>`<tr><td>${esc(fmtDay(s.jour))}</td><td>${esc(s.titre)}</td><td>${s.suites.length}</td></tr>`).join('');
+  const warns = [];
+  if(mondayInput !== ymd(monday)) warns.push(`La date choisie n'était pas un lundi : le fichier est enregistré pour la semaine du ${esc(fmtDay(ymd(monday)))}.`);
+  if(blocks.length > capacity) warns.push(`${blocks.length} sessions pour ${capacity} jours : les dernières débordent sur la semaine suivante.`);
+  const odd = json.sessions.filter(s=>s.suites.length!==10).length;
+  if(odd) warns.push(`${odd} session(s) ne contiennent pas exactement 10 questions — vérifie le tableau collé.`);
+  out.innerHTML = `
+    <p class="msg-ok">✅ ${blocks.length} session(s) reconnue(s) → <code>${esc(convResult.fileName)}</code></p>
+    ${warns.map(w=>`<p class="msg-warn">⚠️ ${w}</p>`).join('')}
+    <div style="overflow:auto;"><table><tr><th>Jour</th><th>Session</th><th>Questions</th></tr>${rows}</table></div>
+    <div style="margin-top:14px;"><button class="teal" onclick="downloadConv()">⬇️ Télécharger ${esc(convResult.fileName)}</button></div>`;
+}
+function downloadConv(){
+  if(!convResult) return;
+  const blob = new Blob([JSON.stringify(convResult.json, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = convResult.fileName; a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ============================= JOUER ============================= */
+let gameState = null;
+
+function sessCard(s){
+  const today = ymd(new Date());
+  const locked = isLocked(s);
+  const best = ui.selectedChildId ? bestScore(ui.selectedChildId, s.id) : null;
+  return `<div class="sess-card ${s.id===ui.playSessionId?'selected':''} ${locked?'locked':''}" data-id="${esc(s.id)}" ${locked?'':'onclick="pickSession(this.dataset.id)"'}>
+    <div class="sess-main"><strong>${esc(s.title)}</strong>
+      <span class="sess-sub">${s.jour?esc(fmtDay(s.jour)):'Sans date'} · ${s.items.length} questions · ${s.timePerQuestion}s</span></div>
+    <div class="sess-tags">
+      ${s.jour===today?'<span class="pill today">Aujourd\'hui</span>':''}
+      ${locked?'<span class="pill">🔒 bientôt</span>':''}
+      ${best!==null?`<span class="pill">✅ meilleur : ${best}/${s.items.length}</span>`:''}
+    </div></div>`;
+}
+function pickSession(id){ ui.playSessionId = id; render(); }
+
+function viewJouer(){
+  if(!state.children.length){
+    return `<div class="card empty"><div class="ic">🙈</div><p>Ajoute d'abord un profil enfant dans l'onglet Profils.</p></div>`;
+  }
+  if(gameState && gameState.phase!=='setup') return renderGamePlay();
+
+  const all = allSessions();
+  const today = ymd(new Date());
+  if(!ui.playSessionId || !all.find(s=>s.id===ui.playSessionId)){
+    const t = all.find(s=>s.jour===today && !isLocked(s));
+    ui.playSessionId = t ? t.id : null;
+  }
+  const thisMonday = ymd(mondayOf(new Date()));
+  const current = all.filter(s=>s.semaine===thisMonday).sort((a,b)=>(a.jour||'').localeCompare(b.jour||''));
+  const others = all.filter(s=>s.semaine!==thisMonday);
+
+  const childCards = state.children.map(c=>`
+    <div class="profile-card ${ui.selectedChildId===c.id?'selected':''}" onclick="selectChild('${c.id}')">
+      <div class="avatar">${c.avatar}</div><div>${esc(c.name)}</div>
+    </div>`).join('');
+
+  let status;
+  if(remote.loading) status = '<p>⏳ Chargement des séries…</p>';
+  else if(!all.length){
+    status = `<div class="empty"><div class="ic">📭</div>
+      <p>Aucune série trouvée dans <code>${SEMAINES_DIR}</code>.</p>
+      ${location.protocol==='file:' ? '<p>La page est ouverte depuis un fichier local : le chargement automatique ne fonctionne qu\'en ligne. Tu peux charger un fichier à la main ci-dessous.</p>' : '<p>Vérifie que le fichier de la semaine est bien dans le dossier, nommé avec la date du lundi (AAAA-MM-JJ.json).</p>'}
+    </div>`;
+  } else status = '';
+
+  return `
+    <div class="card">
+      <h2>Qui joue ?</h2>
+      <div class="profile-grid">${childCards}</div>
+    </div>
+    <div class="card">
+      <h2>Quelle session ?</h2>
+      ${status}
+      ${current.map(sessCard).join('')}
+      ${others.length ? `<details><summary>Autres semaines (${others.length})</summary>${others.map(sessCard).join('')}</details>` : ''}
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px;">
+        <button class="ghost" onclick="loadRemote()">🔄 Actualiser</button>
+        <label class="check" style="margin:0;"><input type="checkbox" ${ui.unlockAll?'checked':''} onchange="ui.unlockAll=this.checked; render();"> Mode parent : débloquer les jours à venir</label>
+      </div>
+    </div>
+    <div class="card game-wrap">
+      <button class="primary" style="font-size:18px;padding:16px 36px;" ${(!ui.selectedChildId||!ui.playSessionId)?'disabled':''} onclick="startGame()">▶️ C'est parti !</button>
+    </div>
+    <div class="card">
+      <h2>Charger un fichier à la main</h2>
+      <p>Utile pour tester un fichier de semaine avant de l'envoyer sur GitHub, ou si la page est ouverte en local.</p>
+      <label class="ghost" style="display:inline-flex;cursor:pointer;border:2px solid var(--panel-border);border-radius:999px;padding:10px 20px;font-weight:700;color:var(--text-dim);">
+        ⬆️ Choisir un fichier .json
+        <input type="file" accept="application/json,.json" style="display:none;" onchange="loadWeekFile(event)">
+      </label>
+    </div>`;
+}
+
+function startGame(){
+  const session = allSessions().find(s=>s.id===ui.playSessionId);
+  if(!session || !session.items.length) return;
+  try{ ac(); }catch(e){}
+  sounds.start();
+  gameState = {
+    phase: 'question', session, childId: ui.selectedChildId,
+    index: 0, answers: [], questionStart: Date.now(), remaining: session.timePerQuestion, timerId: null,
+  };
+  render();
+  runTimer();
+}
+function runTimer(){
+  clearInterval(gameState.timerId);
+  gameState.remaining = gameState.session.timePerQuestion;
+  gameState.questionStart = Date.now();
+  updateTimerBar();
+  setTimeout(()=>document.getElementById('answerInput')?.focus(), 50);
+  gameState.timerId = setInterval(()=>{
+    gameState.remaining -= 1;
+    if(gameState.remaining<=5 && gameState.remaining>0) sounds.tick();
+    updateTimerBar();
+    if(gameState.remaining<=0){
+      clearInterval(gameState.timerId);
+      submitAnswer(true);
+    }
+  },1000);
+}
+function updateTimerBar(){
+  const bar = document.getElementById('timerBar');
+  if(!bar) return;
+  const pct = Math.max(0, gameState.remaining/gameState.session.timePerQuestion*100);
+  bar.style.width = pct+'%';
+  bar.style.background = pct<25 ? 'linear-gradient(90deg,var(--coral),#c0392b)' : 'linear-gradient(90deg,var(--teal),var(--gold))';
+}
+
+function renderGamePlay(){
+  const g = gameState;
+  const child = state.children.find(c=>c.id===g.childId);
+  const total = g.session.items.length;
+  if(g.phase==='question' || g.phase==='feedback'){
+    const item = g.session.items[g.index];
+    return `
+    <div class="card game-wrap">
+      <div class="pill">${child.avatar} ${esc(child.name)} · Question ${g.index+1}/${total}</div>
+      ${trailHtml(g)}
+      <div class="timer-bar-outer"><div class="timer-bar-inner" id="timerBar" style="width:100%;"></div></div>
+      <div class="sequence-display">${esc(item.sequence)}</div>
+      ${g.phase==='question' ? `
+        <div class="answer-row">
+          <input id="answerInput" type="text" autocomplete="off" placeholder="Ta réponse..." onkeydown="if(event.key==='Enter') submitAnswer(false)">
+          <button class="primary" onclick="submitAnswer(false)">Valider</button>
+        </div>
+        <div style="margin-top:14px;"><button class="ghost" onclick="submitAnswer(true)">Je ne sais pas / passer</button></div>
+      ` : `
+        ${g.lastFeedback}
+        <button class="primary" onclick="nextQuestion()">${g.index+1<total?'Question suivante →':'Voir le résultat 🎉'}</button>
+      `}
+    </div>`;
+  }
+  if(g.phase==='summary') return renderSummary();
+  return '';
+}
+function trailHtml(g){
+  const total = g.session.items.length;
+  let html = '<div class="trail">';
+  for(let i=0;i<total;i++){
+    let cls = '';
+    if(i<g.answers.length) cls = g.answers[i].correct ? 'correct' : 'wrong';
+    else if(i===g.index) cls = 'current';
+    html += `<div class="node ${cls}">${i+1}</div>`;
+    if(i<total-1) html += `<div class="link ${i<g.answers.length?'done':''}"></div>`;
+  }
+  return html + '</div>';
+}
+function submitAnswer(timedOut){
+  const g = gameState;
+  if(!g || g.phase!=='question') return;
+  clearInterval(g.timerId);
+  const item = g.session.items[g.index];
+  const given = timedOut ? '' : (document.getElementById('answerInput')?.value || '');
+  const correct = !timedOut && answersMatch(given, item.answer);
+  const timeMs = Date.now() - g.questionStart;
+  g.answers.push({ sequence:item.sequence, expected:item.answer, given, correct, timeMs });
+  if(correct) sounds.correct(); else sounds.wrong();
+  g.lastFeedback = `<div class="feedback-banner ${correct?'ok':'ko'}">
+      ${correct ? '✅ Bravo, bonne réponse !' : (timedOut && !given ? '⏰ Temps écoulé ou question passée' : '❌ Pas tout à fait...')}
+      ${!correct ? `<span class="rule">La bonne réponse était : <strong>${esc(item.answer)}</strong>${item.rule?' · Règle : '+esc(item.rule):''}</span>` : ''}
+    </div>`;
+  g.phase = 'feedback';
+  render();
+}
+function nextQuestion(){
+  const g = gameState;
+  if(g.index+1 < g.session.items.length){
+    g.index += 1; g.phase = 'question';
+    render(); runTimer();
+  } else finishGame();
+}
+function finishGame(){
+  const g = gameState;
+  sounds.sessionEnd();
+  const score = g.answers.filter(a=>a.correct).length;
+  const total = g.answers.length;
+  const totalTimeMs = g.answers.reduce((s,a)=>s+a.timeMs,0);
+  const avgTimeMs = Math.round(totalTimeMs/total);
+  const result = {
+    id: uid('res'), childId: g.childId, sessionId: g.session.id, sessionTitle: g.session.title,
+    date: new Date().toISOString(), answers: g.answers, score, total, totalTimeMs, avgTimeMs
+  };
+  state.results.push(result);
+  const newBadges = evaluateBadges(g.childId);
+  if(newBadges.length) setTimeout(()=>sounds.badge(), 500);
+  saveState();
+  g.phase = 'summary'; g.result = result; g.newBadges = newBadges;
+  render();
+}
+function renderSummary(){
+  const g = gameState, r = g.result;
+  const child = state.children.find(c=>c.id===g.childId);
+  const prevResults = childResults(g.childId).filter(x=>x.id!==r.id);
+  const prev = prevResults[prevResults.length-1];
+  let deltaHtml = '<p>C\'était ta première session, bravo pour ce premier pas ! 🎉</p>';
+  if(prev){
+    const scoreDelta = r.score - prev.score;
+    const timeDelta = Math.round((prev.avgTimeMs - r.avgTimeMs)/100)/10;
+    const scoreCls = scoreDelta>0?'up':scoreDelta<0?'down':'flat';
+    const timeCls = timeDelta>0?'up':timeDelta<0?'down':'flat';
+    deltaHtml = `<div class="result-grid">
+        <div class="stat-box"><div class="val delta ${scoreCls}">${scoreDelta>0?'+':''}${scoreDelta}</div><div class="lbl">score vs session précédente</div></div>
+        <div class="stat-box"><div class="val delta ${timeCls}">${timeDelta>0?'-':timeDelta<0?'+':''}${Math.abs(timeDelta)}s</div><div class="lbl">temps moyen / question</div></div>
+      </div>
+      <p>${scoreDelta>0? 'Belle progression, continue comme ça ! 💪' : scoreDelta<0? 'Un peu moins bien que la dernière fois, ce n\'est pas grave : chaque session compte pour progresser.' : 'Score stable par rapport à la dernière session.'}</p>`;
+  }
+  const badgesHtml = g.newBadges.map(id=>{
+    const b = BADGE_DEFS.find(x=>x.id===id);
+    return `<div class="newbadge-pop"><span style="font-size:28px;">${b.ic}</span><span style="color:var(--gold);font-weight:700;">${b.lbl}</span></div>`;
+  }).join('');
+  return `
+  <div class="card game-wrap">
+    <h2>${child.avatar} Résultat de ${esc(child.name)}</h2>
+    <p>${esc(g.session.title)}</p>
+    <div class="result-grid">
+      <div class="stat-box"><div class="val">${r.score}/${r.total}</div><div class="lbl">bonnes réponses</div></div>
+      <div class="stat-box"><div class="val">${Math.round(r.avgTimeMs/1000)}s</div><div class="lbl">temps moyen / question</div></div>
+      <div class="stat-box"><div class="val">${Math.round(r.totalTimeMs/1000)}s</div><div class="lbl">temps total</div></div>
+    </div>
+    ${deltaHtml}
+    ${g.newBadges.length?`<h3 style="margin-top:20px;">🏅 Nouveau(x) badge(s) débloqué(s) !</h3><div class="badge-grid" style="justify-content:center;">${badgesHtml}</div>`:''}
+    <div style="margin-top:22px;"><button class="primary" onclick="backToSetup()">Terminer</button></div>
+  </div>`;
+}
+function backToSetup(){ gameState = null; render(); }
+
+/* ============================= PROGRESSION ============================= */
+function viewProgression(){
+  if(!state.children.length){
+    return `<div class="card empty"><div class="ic">📊</div><p>Ajoute un profil enfant pour voir sa progression.</p></div>`;
+  }
+  if(!ui.progChildId || !state.children.find(c=>c.id===ui.progChildId)) ui.progChildId = state.children[0].id;
+  const child = state.children.find(c=>c.id===ui.progChildId);
+  const results = childResults(ui.progChildId).slice().reverse();
+  const unlocked = state.badgesUnlocked[ui.progChildId] || [];
+
+  const childTabs = state.children.map(c=>{
+    const on = c.id===ui.progChildId;
+    return `<button style="background:${on?'var(--panel-light)':'var(--panel)'};color:${on?'var(--gold)':'var(--text-dim)'};box-shadow:none;border:2px solid ${on?'var(--gold)':'transparent'};" onclick="ui.progChildId='${c.id}'; render();">${c.avatar} ${esc(c.name)}</button>`;
+  }).join('');
+  const historyRows = results.map(r=>{
+    const pct = Math.round(r.score/r.total*100);
+    return `<div class="history-row">
+      <span class="pill mono">${fmtDate(r.date)}</span>
+      <span style="min-width:90px;">${esc(r.sessionTitle)}</span>
+      <div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;"></div></div>
+      <span class="mono">${r.score}/${r.total}</span>
+      <span class="pill">${Math.round(r.avgTimeMs/1000)}s/q</span>
+    </div>`;
+  }).join('');
+  const badgesHtml = BADGE_DEFS.map(b=>{
+    const has = unlocked.includes(b.id);
+    return `<div class="badge ${has?'':'locked'}" title="${esc(b.desc)}"><div class="ic">${b.ic}</div><div class="lbl">${b.lbl}</div></div>`;
+  }).join('');
+
+  return `
+    <div class="card"><div style="display:flex;gap:8px;flex-wrap:wrap;">${childTabs}</div></div>
+    <div class="card">
+      <h2>🏅 Badges de ${esc(child.name)} (${unlocked.length}/${BADGE_DEFS.length})</h2>
+      <div class="badge-grid">${badgesHtml}</div>
+    </div>
+    <div class="card">
+      <h2>Historique des sessions</h2>
+      ${historyRows || '<p>Aucune session jouée pour l\'instant.</p>'}
+    </div>
+    <div class="card">
+      <h2>Sauvegarde</h2>
+      <p>Les résultats sont stockés dans ce navigateur, sur cet appareil. Exporte-les dans un fichier pour les garder en sécurité ou les transférer (par exemple depuis l'ancienne version locale).</p>
+      <div class="row">
+        <button class="teal" onclick="exportData()">⬇️ Exporter en JSON</button>
+        <label class="ghost" style="text-align:center;display:flex;align-items:center;justify-content:center;border:2px solid var(--panel-border);border-radius:999px;padding:10px 20px;font-weight:700;cursor:pointer;color:var(--text-dim);">
+          ⬆️ Importer un fichier
+          <input type="file" accept="application/json" style="display:none;" onchange="importData(event)">
+        </label>
+      </div>
+    </div>`;
+}
+function exportData(){
+  const blob = new Blob([JSON.stringify(state,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'suites-logiques-sauvegarde-'+ymd(new Date())+'.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function importData(evt){
+  const file = evt.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    try{
+      const data = JSON.parse(reader.result);
+      if(!confirm('Importer ce fichier remplacera toutes les données actuelles. Continuer ?')) return;
+      delete data.sessions;
+      state = Object.assign(defaultState(), data);
+      saveState();
+      ui.selectedChildId = state.children[0]?.id || null;
+      ui.progChildId = ui.selectedChildId;
+      render();
+    }catch(e){ alert('Fichier invalide.'); }
+  };
+  reader.readAsText(file);
+}
+
+/* ============================= INIT ============================= */
+render();
+loadRemote();
+</script>
+</body>
+</html>
