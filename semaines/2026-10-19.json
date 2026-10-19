@@ -1,0 +1,124 @@
+{
+  "semaine": "2026-10-19",
+  "sessions": [
+    {
+      "titre": "Session 1 — Échauffement",
+      "jour": "2026-10-19",
+      "temps": 30,
+      "suites": [
+        {"suite": "1 - 2 - 3 - 4 - ?", "reponse": "5", "regle": "+1"},
+        {"suite": "4 - 5 - 6 - 7 - ?", "reponse": "8", "regle": "+1"},
+        {"suite": "2 - 4 - 6 - 8 - ?", "reponse": "10", "regle": "+2"},
+        {"suite": "5 - 7 - 9 - 11 - ?", "reponse": "13", "regle": "+2"},
+        {"suite": "3 - 6 - 9 - 12 - ?", "reponse": "15", "regle": "+3"},
+        {"suite": "10 - 9 - 8 - 7 - ?", "reponse": "6", "regle": "-1"},
+        {"suite": "16 - 14 - 12 - 10 - ?", "reponse": "8", "regle": "-2"},
+        {"suite": "5 - 10 - 15 - 20 - ?", "reponse": "25", "regle": "+5"},
+        {"suite": "10 - 20 - 30 - 40 - ?", "reponse": "50", "regle": "+10"},
+        {"suite": "1 - 2 - 4 - 8 - ?", "reponse": "16", "regle": "On double"}
+      ]
+    },
+    {
+      "titre": "Session 2 — Les additions",
+      "jour": "2026-10-20",
+      "temps": 30,
+      "suites": [
+        {"suite": "6 - 7 - 8 - 9 - ?", "reponse": "10", "regle": "+1"},
+        {"suite": "3 - 5 - 7 - 9 - ?", "reponse": "11", "regle": "+2"},
+        {"suite": "2 - 5 - 8 - 11 - ?", "reponse": "14", "regle": "+3"},
+        {"suite": "4 - 8 - 12 - 16 - ?", "reponse": "20", "regle": "+4"},
+        {"suite": "7 - 12 - 17 - 22 - ?", "reponse": "27", "regle": "+5"},
+        {"suite": "20 - 21 - 22 - 23 - ?", "reponse": "24", "regle": "+1"},
+        {"suite": "8 - 10 - 12 - 14 - ?", "reponse": "16", "regle": "+2"},
+        {"suite": "1 - 4 - 7 - 10 - ?", "reponse": "13", "regle": "+3"},
+        {"suite": "10 - 15 - 20 - 25 - ?", "reponse": "30", "regle": "+5"},
+        {"suite": "20 - 30 - 40 - 50 - ?", "reponse": "60", "regle": "+10"}
+      ]
+    },
+    {
+      "titre": "Session 3 — Les soustractions",
+      "jour": "2026-10-21",
+      "temps": 30,
+      "suites": [
+        {"suite": "8 - 7 - 6 - 5 - ?", "reponse": "4", "regle": "-1"},
+        {"suite": "12 - 11 - 10 - 9 - ?", "reponse": "8", "regle": "-1"},
+        {"suite": "14 - 12 - 10 - 8 - ?", "reponse": "6", "regle": "-2"},
+        {"suite": "19 - 17 - 15 - 13 - ?", "reponse": "11", "regle": "-2"},
+        {"suite": "20 - 17 - 14 - 11 - ?", "reponse": "8", "regle": "-3"},
+        {"suite": "30 - 25 - 20 - 15 - ?", "reponse": "10", "regle": "-5"},
+        {"suite": "6 - 5 - 4 - 3 - ?", "reponse": "2", "regle": "-1"},
+        {"suite": "18 - 16 - 14 - 12 - ?", "reponse": "10", "regle": "-2"},
+        {"suite": "25 - 20 - 15 - 10 - ?", "reponse": "5", "regle": "-5"},
+        {"suite": "50 - 40 - 30 - 20 - ?", "reponse": "10", "regle": "-10"}
+      ]
+    },
+    {
+      "titre": "Session 4 — Mélange facile",
+      "jour": "2026-10-22",
+      "temps": 30,
+      "suites": [
+        {"suite": "2 - 3 - 4 - 5 - ?", "reponse": "6", "regle": "+1"},
+        {"suite": "6 - 8 - 10 - 12 - ?", "reponse": "14", "regle": "+2"},
+        {"suite": "5 - 8 - 11 - 14 - ?", "reponse": "17", "regle": "+3"},
+        {"suite": "3 - 7 - 11 - 15 - ?", "reponse": "19", "regle": "+4"},
+        {"suite": "10 - 15 - 20 - 25 - ?", "reponse": "30", "regle": "+5"},
+        {"suite": "15 - 14 - 13 - 12 - ?", "reponse": "11", "regle": "-1"},
+        {"suite": "22 - 20 - 18 - 16 - ?", "reponse": "14", "regle": "-2"},
+        {"suite": "24 - 21 - 18 - 15 - ?", "reponse": "12", "regle": "-3"},
+        {"suite": "2 - 4 - 8 - 16 - ?", "reponse": "32", "regle": "On double"},
+        {"suite": "5 - 10 - 15 - 20 - ?", "reponse": "25", "regle": "+5"}
+      ]
+    },
+    {
+      "titre": "Session 5 — On consolide",
+      "jour": "2026-10-23",
+      "temps": 30,
+      "suites": [
+        {"suite": "9 - 10 - 11 - 12 - ?", "reponse": "13", "regle": "+1"},
+        {"suite": "4 - 6 - 8 - 10 - ?", "reponse": "12", "regle": "+2"},
+        {"suite": "7 - 10 - 13 - 16 - ?", "reponse": "19", "regle": "+3"},
+        {"suite": "2 - 6 - 10 - 14 - ?", "reponse": "18", "regle": "+4"},
+        {"suite": "8 - 13 - 18 - 23 - ?", "reponse": "28", "regle": "+5"},
+        {"suite": "17 - 16 - 15 - 14 - ?", "reponse": "13", "regle": "-1"},
+        {"suite": "26 - 24 - 22 - 20 - ?", "reponse": "18", "regle": "-2"},
+        {"suite": "21 - 18 - 15 - 12 - ?", "reponse": "9", "regle": "-3"},
+        {"suite": "3 - 6 - 12 - 24 - ?", "reponse": "48", "regle": "On double"},
+        {"suite": "10 - 20 - 30 - 40 - ?", "reponse": "50", "regle": "+10"}
+      ]
+    },
+    {
+      "titre": "Session 6 — Petit défi",
+      "jour": "2026-10-24",
+      "temps": 30,
+      "suites": [
+        {"suite": "11 - 12 - 13 - 14 - ?", "reponse": "15", "regle": "+1"},
+        {"suite": "7 - 9 - 11 - 13 - ?", "reponse": "15", "regle": "+2"},
+        {"suite": "3 - 6 - 9 - 12 - ?", "reponse": "15", "regle": "+3"},
+        {"suite": "5 - 9 - 13 - 17 - ?", "reponse": "21", "regle": "+4"},
+        {"suite": "6 - 11 - 16 - 21 - ?", "reponse": "26", "regle": "+5"},
+        {"suite": "14 - 13 - 12 - 11 - ?", "reponse": "10", "regle": "-1"},
+        {"suite": "28 - 26 - 24 - 22 - ?", "reponse": "20", "regle": "-2"},
+        {"suite": "27 - 24 - 21 - 18 - ?", "reponse": "15", "regle": "-3"},
+        {"suite": "4 - 8 - 16 - 32 - ?", "reponse": "64", "regle": "On double"},
+        {"suite": "40 - 30 - 20 - 10 - ?", "reponse": "0", "regle": "-10"}
+      ]
+    },
+    {
+      "titre": "Session 7 — Révision de la semaine",
+      "jour": "2026-10-25",
+      "temps": 30,
+      "suites": [
+        {"suite": "5 - 6 - 7 - 8 - ?", "reponse": "9", "regle": "+1"},
+        {"suite": "2 - 4 - 6 - 8 - ?", "reponse": "10", "regle": "+2"},
+        {"suite": "4 - 7 - 10 - 13 - ?", "reponse": "16", "regle": "+3"},
+        {"suite": "1 - 5 - 9 - 13 - ?", "reponse": "17", "regle": "+4"},
+        {"suite": "10 - 15 - 20 - 25 - ?", "reponse": "30", "regle": "+5"},
+        {"suite": "13 - 12 - 11 - 10 - ?", "reponse": "9", "regle": "-1"},
+        {"suite": "20 - 18 - 16 - 14 - ?", "reponse": "12", "regle": "-2"},
+        {"suite": "18 - 15 - 12 - 9 - ?", "reponse": "6", "regle": "-3"},
+        {"suite": "10 - 20 - 30 - 40 - ?", "reponse": "50", "regle": "+10"},
+        {"suite": "1 - 2 - 4 - 8 - ?", "reponse": "16", "regle": "On double"}
+      ]
+    }
+  ]
+}
