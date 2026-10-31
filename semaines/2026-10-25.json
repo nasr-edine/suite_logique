@@ -1,0 +1,39 @@
+{
+  "semaine": "2026-10-26",
+  "sessions": [
+    {
+      "titre": "Session 1 — Samedi : Révision et découverte",
+      "jour": "2026-10-31",
+      "temps": 30,
+      "suites": [
+        {"suite": "3 - 4 - 5 - 6 - ?", "reponse": "7", "regle": "+1"},
+        {"suite": "7 - 8 - 9 - 10 - ?", "reponse": "11", "regle": "+1"},
+        {"suite": "2 - 4 - 6 - 8 - ?", "reponse": "10", "regle": "+2"},
+        {"suite": "5 - 8 - 11 - 14 - ?", "reponse": "17", "regle": "+3"},
+        {"suite": "4 - 8 - 12 - 16 - ?", "reponse": "20", "regle": "+4"},
+        {"suite": "12 - 11 - 10 - 9 - ?", "reponse": "8", "regle": "-1"},
+        {"suite": "18 - 16 - 14 - 12 - ?", "reponse": "10", "regle": "-2"},
+        {"suite": "5 - 10 - 15 - 20 - ?", "reponse": "25", "regle": "+5"},
+        {"suite": "20 - 30 - 40 - 50 - ?", "reponse": "60", "regle": "+10"},
+        {"suite": "2 - 4 - 8 - 16 - ?", "reponse": "32", "regle": "On double"}
+      ]
+    },
+    {
+      "titre": "Session 2 — Dimanche : Petit défi",
+      "jour": "2026-11-01",
+      "temps": 30,
+      "suites": [
+        {"suite": "6 - 7 - 8 - 9 - ?", "reponse": "10", "regle": "+1"},
+        {"suite": "3 - 5 - 7 - 9 - ?", "reponse": "11", "regle": "+2"},
+        {"suite": "4 - 7 - 10 - 13 - ?", "reponse": "16", "regle": "+3"},
+        {"suite": "2 - 6 - 10 - 14 - ?", "reponse": "18", "regle": "+4"},
+        {"suite": "8 - 13 - 18 - 23 - ?", "reponse": "28", "regle": "+5"},
+        {"suite": "15 - 14 - 13 - 12 - ?", "reponse": "11", "regle": "-1"},
+        {"suite": "22 - 20 - 18 - 16 - ?", "reponse": "14", "regle": "-2"},
+        {"suite": "24 - 21 - 18 - 15 - ?", "reponse": "12", "regle": "-3"},
+        {"suite": "3 - 6 - 12 - 24 - ?", "reponse": "48", "regle": "On double"},
+        {"suite": "50 - 40 - 30 - 20 - ?", "reponse": "10", "regle": "-10"}
+      ]
+    }
+  ]
+}
