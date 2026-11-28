@@ -1,0 +1,39 @@
+{
+  "semaine": "2026-11-23",
+  "sessions": [
+    {
+      "titre": "Session 1 — Samedi : Entraînement logique",
+      "jour": "2026-11-28",
+      "temps": 30,
+      "suites": [
+        {"suite": "6 - 7 - 8 - 9 - ?", "reponse": "10", "regle": "+1"},
+        {"suite": "4 - 6 - 8 - 10 - ?", "reponse": "12", "regle": "+2"},
+        {"suite": "7 - 10 - 13 - 16 - ?", "reponse": "19", "regle": "+3"},
+        {"suite": "3 - 7 - 11 - 15 - ?", "reponse": "19", "regle": "+4"},
+        {"suite": "9 - 14 - 19 - 24 - ?", "reponse": "29", "regle": "+5"},
+        {"suite": "15 - 14 - 13 - 12 - ?", "reponse": "11", "regle": "-1"},
+        {"suite": "28 - 26 - 24 - 22 - ?", "reponse": "20", "regle": "-2"},
+        {"suite": "35 - 30 - 25 - 20 - ?", "reponse": "15", "regle": "-5"},
+        {"suite": "4 - 8 - 16 - 32 - ?", "reponse": "64", "regle": "On double"},
+        {"suite": "6 - 12 - 18 - 24 - ?", "reponse": "30", "regle": "+6"}
+      ]
+    },
+    {
+      "titre": "Session 2 — Dimanche : Petit challenge",
+      "jour": "2026-11-29",
+      "temps": 30,
+      "suites": [
+        {"suite": "12 - 13 - 14 - 15 - ?", "reponse": "16", "regle": "+1"},
+        {"suite": "5 - 7 - 9 - 11 - ?", "reponse": "13", "regle": "+2"},
+        {"suite": "8 - 11 - 14 - 17 - ?", "reponse": "20", "regle": "+3"},
+        {"suite": "6 - 10 - 14 - 18 - ?", "reponse": "22", "regle": "+4"},
+        {"suite": "11 - 16 - 21 - 26 - ?", "reponse": "31", "regle": "+5"},
+        {"suite": "19 - 18 - 17 - 16 - ?", "reponse": "15", "regle": "-1"},
+        {"suite": "30 - 27 - 24 - 21 - ?", "reponse": "18", "regle": "-3"},
+        {"suite": "45 - 40 - 35 - 30 - ?", "reponse": "25", "regle": "-5"},
+        {"suite": "5 - 10 - 20 - 40 - ?", "reponse": "80", "regle": "On double"},
+        {"suite": "7 - 14 - 28 - 56 - ?", "reponse": "112", "regle": "On double"}
+      ]
+    }
+  ]
+}
